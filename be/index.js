@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/uploads", express.static("uploads"));
 
-app.use('/uploads', songRoutes);
+// app.use('/uploads', songRoutes);
 app.use('/songs', songRoutes);
 
 app.use(errorHandler);

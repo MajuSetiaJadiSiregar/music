@@ -5,5 +5,6 @@ const router = express.Router();
 
 router.post('/', upload.single('song'), SongController.addSong);
 router.get('/', SongController.readSong);
+router.get('/:id', SongController.readSongById);
 
 module.exports = router;

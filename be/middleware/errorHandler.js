@@ -9,6 +9,9 @@ function errorHandler (error, req, res, next)
 
         case 'file' : 
             return res.status(400).json({message : error.message});
+        
+        case 'not-found-song' :
+            return res.status(404).json({message : error.message});
     }
 }
 

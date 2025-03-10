@@ -18,10 +18,23 @@ class SongController {
         }
     }
 
-    static async readSong(req, res) {
+    static async readSong(req, res, next) {
         try {
             const songs = await Song.findAll();
             res.status(200).json({ songs: songs });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+
+    static async readSongById(req, res, next) {
+        try {
+            const song = await Song.findByPk(req.params.id);
+            if (!song) {
+                throw {'name' : 'not-found-song', 'message' : 'Lagu not found'}
+            }
+            res.status(200).json({ song: song });
         } catch (error) {
             next(error);
         }
