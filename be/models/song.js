@@ -14,8 +14,30 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Song.init({
-    title: DataTypes.STRING,
-    filePath: DataTypes.STRING
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Title is required'
+        },
+        notEmpty: {
+          msg: 'Title is required'
+        }
+      }
+    },
+    filePath: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Title is required'
+        },
+        notEmpty: {
+          msg: 'Title is required'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Song',
