@@ -13,8 +13,17 @@ class SongController {
             res.status(201).json({ message: "Lagu berhasil diunggah", data: song });
 
 
-        }catch(e) {
-            next(e);
+        }catch(error) {
+            next(error);
+        }
+    }
+
+    static async readSong(req, res) {
+        try {
+            const songs = await Song.findAll();
+            res.status(200).json({ songs: songs });
+        } catch (error) {
+            next(error);
         }
     }
 };

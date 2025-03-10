@@ -1,6 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const fs = require("fs");
+const { Song } = require("./models");
+
 const songRoutes = require('./routes/SongRoutes');
 const errorHandler = require("./middleware/errorHandler");
 
@@ -14,9 +17,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/uploads", express.static("uploads"));
 
-app.use('/uploads', songRoutes)
-
-
+app.use('/uploads', songRoutes);
+app.use('/songs', songRoutes);
 
 app.use(errorHandler);
 
