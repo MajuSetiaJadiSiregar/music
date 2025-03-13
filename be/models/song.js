@@ -14,6 +14,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Song.init({
+    band: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Band is required'
+        },
+        notEmpty: {
+          msg: 'Band is required'
+        }
+      }
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -23,6 +35,18 @@ module.exports = (sequelize, DataTypes) => {
         },
         notEmpty: {
           msg: 'Title is required'
+        }
+      }
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Image is required'
+        },
+        notEmpty: {
+          msg: 'Image is required'
         }
       }
     },

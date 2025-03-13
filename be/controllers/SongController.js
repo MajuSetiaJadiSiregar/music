@@ -1,19 +1,19 @@
 const { Song } = require("../models");
 const fs = require("fs");
+const path = require("path");
 
 
 class SongController {
 
     static async addSong(req, res, next) {
         try {
-            if (!req.file) {
-                throw { 'name': 'file', 'message': 'File harus di input' }
-            }
 
-            const { title } = req.body;
-            const filePath = `/uploads/${req.file.filename}`;
-            const song = await Song.create({ title, filePath });
-            res.status(201).json({ message: "Lagu berhasil diunggah", data: song });
+            const { title, band } = req.body;
+            const image = req.files['image'][0].path;
+            const filePath = req.files['song'][0].path;
+
+            const newSong = await Song.create({ title, band, image, filePath });
+            res.status(201).json({ message: "Add Succes", data: newSong });
 
 
         } catch (error) {
@@ -49,12 +49,27 @@ class SongController {
 
             const song = await Song.findByPk(req.params.id);
             if (!song) {
-                throw { 'name': 'not-found-song', 'message': 'Lagu not found' };
+                throw { name: "not-found-song", message: "Lagu tidak ditemukan" };
             }
 
-            fs.unlinkSync("." + song.filePath);
+            const songFilePath = path.join(__dirname, "..", song.filePath);
+            if (fs.existsSync(songFilePath)) {
+                await fs.promises.unlink(songFilePath);
+            } else {
+                console.log( songFilePath);
+            }
+
+            const imageFilePath = path.join(__dirname, "..", song.image);
+
+            if (imageFilePath && fs.existsSync(imageFilePath)) {
+                await fs.promises.unlink(imageFilePath);
+            
+            } else if (imageFilePath) {
+                console.log(imageFilePath);
+            }
+
             await song.destroy();
-            res.status(200).json({ message: "Lagu berhasil dihapus" });
+            res.status(200).json({ message: "Delete Success" });
 
         } catch (error) {
             next(error);

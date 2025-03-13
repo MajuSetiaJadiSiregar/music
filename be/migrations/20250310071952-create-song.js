@@ -9,13 +9,21 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      band: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       title: {
         type: Sequelize.STRING,
-        allowNull : false
+        allowNull: false
+      },
+      image: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       filePath: {
         type: Sequelize.STRING,
-        allowNull : false
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
